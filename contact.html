@@ -1,20 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact | Abdullah Sarwar</title>
-  <style>
-    body { background: #0f0f0f; color: #eaeaea; font-family: Arial, Helvetica, sans-serif; text-align: center; padding: 100px 20px; }
-    a { color: #00ffd5; text-decoration: none; font-weight: bold; }
-    h1 { font-size: 3rem; margin-bottom: 20px; }
-    p { font-size: 1.2rem; margin: 10px 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Abdullah Sarwar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a26;
+            --bg-card-hover: #22222f;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --orange: #fd7014;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --border: rgba(255,255,255,0.06);
+            --gradient-1: linear-gradient(135deg, #6c5ce7, #fd7014);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 2rem; position: relative; overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(108,92,231,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 60%, rgba(253,112,20,0.04) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite; z-index: 0;
+        }
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0,0); }
+            50% { transform: translate(2%,-2%); }
+        }
+        .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .back-link {
+            position: fixed; top: 1.5rem; left: 2rem; z-index: 100;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            display: flex; align-items: center; gap: 0.5rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--text-primary); }
+        .contact-container {
+            position: relative; z-index: 1;
+            max-width: 550px; width: 100%; text-align: center;
+        }
+        .contact-container h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -1px;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .contact-subtitle {
+            color: var(--text-secondary); font-size: 1rem; margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease 0.1s forwards; opacity: 0;
+        }
+        .contact-cards { display: flex; flex-direction: column; gap: 1rem; }
+        .contact-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem 2rem;
+            display: flex; align-items: center; gap: 1.2rem;
+            text-decoration: none; color: var(--text-primary);
+            transition: all 0.3s;
+            animation: fadeInUp 0.6s ease forwards; opacity: 0;
+        }
+        .contact-card:nth-child(1) { animation-delay: 0.15s; }
+        .contact-card:nth-child(2) { animation-delay: 0.25s; }
+        .contact-card:nth-child(3) { animation-delay: 0.35s; }
+        .contact-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(108,92,231,0.25);
+            background: var(--bg-card-hover);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .contact-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; flex-shrink: 0;
+        }
+        .icon-email { background: rgba(108,92,231,0.15); }
+        .icon-phone { background: rgba(253,112,20,0.15); }
+        .icon-whatsapp { background: rgba(37,211,102,0.15); }
+        .contact-info { text-align: left; }
+        .contact-label {
+            font-size: 0.75rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 0.2rem;
+        }
+        .contact-value { font-size: 1rem; font-weight: 500; }
+        .contact-arrow {
+            margin-left: auto; color: var(--text-muted);
+            font-size: 1.2rem; transition: transform 0.3s, color 0.3s;
+        }
+        .contact-card:hover .contact-arrow { transform: translateX(4px); color: var(--accent-light); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 480px) {
+            .contact-card { padding: 1.2rem 1.5rem; }
+            .contact-value { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Contact Me</h1>
-  <p>Email: <a href="mailto:abdullahsarwar202@gmail.com">abdullahsarwar202@gmail.com</a></p>
-  <p>Phone: 03060337573</p>
-  <p><a href="index.html">Back to Portfolio</a></p>
+    <a href="index.html" class="back-link">&#8592; Back</a>
+    <div class="contact-container">
+        <h1>Let's <span class="gradient-text">Connect</span></h1>
+        <p class="contact-subtitle">Choose your preferred way to reach out</p>
+        <div class="contact-cards">
+            <a href="mailto:abdullahsarwar202@gmail.com" class="contact-card">
+                <div class="contact-icon icon-email">&#128231;</div>
+                <div class="contact-info">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">abdullahsarwar202@gmail.com</div>
+                </div>
+                <div class="contact-arrow">&#8250;</div>
+            </a>
+            <a href="tel:+923060337573" class="contact-card">
+                <div class="contact-icon icon-phone">&#128241;</div>
+                <div class="contact-info">
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">+92 306 0337573</div>
+                </div>
+                <div class="contact-arrow">&#8250;</div>
+            </a>
+            <a href="https://wa.me/923060337573" target="_blank" rel="noopener" class="contact-card">
+                <div class="contact-icon icon-whatsapp">&#128172;</div>
+                <div class="contact-info">
+                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-value">Message on WhatsApp</div>
+                </div>
+                <div class="contact-arrow">&#8250;</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
