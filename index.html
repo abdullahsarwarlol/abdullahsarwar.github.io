@@ -95,15 +95,24 @@
         .gallery-item:hover::after{opacity:1}
         .gallery-load-more{text-align:center;margin-top:2.5rem}
 
-        .videos-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        /* VIDEOS */
+        .videos-sub{max-width:1100px;margin:0 auto 3rem}
+        .videos-sub-header{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+        .videos-sub-header .badge{font-size:.7rem;padding:.3rem .8rem;border-radius:50px;text-transform:uppercase;letter-spacing:1px;font-weight:600;font-family:'Sora',sans-serif}
+        .badge-short{background:rgba(253,112,20,.15);color:var(--orange)}
+        .badge-long{background:rgba(108,92,231,.15);color:var(--accent-light)}
+        .videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
         .video-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s}
         .video-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,.2)}
         .video-embed{aspect-ratio:16/9;background:#000}
-        .video-embed iframe{width:100%;height:100%;border:none}
+        .video-embed iframe,.video-embed video{width:100%;height:100%;border:none;object-fit:cover}
+        .video-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-card);color:var(--text-muted);gap:.5rem;font-size:.8rem}
+        .video-placeholder-icon{width:50px;height:50px;border-radius:50%;background:rgba(108,92,231,.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
         .video-info{padding:1.2rem 1.5rem}
         .video-info h3{font-size:1rem;margin-bottom:.4rem}
         .video-info p{color:var(--text-secondary);font-size:.8rem}
 
+        /* REVIEWS */
         #reviews{background:var(--bg-secondary)}
         .reviews-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
         .review-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative}
@@ -111,6 +120,31 @@
         .review-text{color:var(--text-secondary);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem;padding-top:1rem}
         .review-author{font-weight:600;font-size:.9rem}
         .review-stars{color:var(--orange);font-size:.85rem;margin-top:.3rem}
+        .review-cta{text-align:center;margin-top:3rem}
+
+        /* REVIEW MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:2rem}
+        .modal-overlay.active{display:flex}
+        .modal{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;max-width:500px;width:100%;padding:2.5rem;position:relative;animation:fadeInUp .4s ease}
+        .modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;transition:color .3s}
+        .modal-close:hover{color:var(--text-primary)}
+        .modal h2{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.5rem}
+        .modal p{color:var(--text-secondary);font-size:.9rem;margin-bottom:2rem}
+        .form-group{margin-bottom:1.2rem}
+        .form-group label{display:block;font-size:.8rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
+        .form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;background:var(--bg-primary);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:'Sora',sans-serif;font-size:.9rem;transition:border-color .3s;outline:none}
+        .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+        .form-group textarea{resize:vertical;min-height:100px}
+        .star-rating{display:flex;gap:.3rem;flex-direction:row-reverse;justify-content:flex-end}
+        .star-rating input{display:none}
+        .star-rating label{font-size:1.8rem;color:var(--text-muted);cursor:pointer;transition:color .2s}
+        .star-rating input:checked~label,.star-rating label:hover,.star-rating label:hover~label{color:var(--orange)}
+        .form-submit{width:100%;padding:.85rem;background:var(--gradient-1);color:#fff;border:none;border-radius:10px;font-family:'Sora',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;margin-top:.5rem}
+        .form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+        .form-success{display:none;text-align:center;padding:2rem 0}
+        .form-success .check{font-size:3rem;margin-bottom:1rem}
+        .form-success h3{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:.5rem}
+        .form-success p{color:var(--text-secondary);font-size:.9rem}
 
         .cta-section{text-align:center;padding:6rem 2rem;position:relative;overflow:hidden}
         .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(108,92,231,.1),transparent 70%)}
@@ -218,18 +252,37 @@
 
     <section id="videos">
         <div class="section-header reveal"><div class="section-tag">Featured Work</div><h2 class="section-title">Featured Videos</h2></div>
-        <div class="videos-grid">
-            <div class="video-card reveal"><div class="video-embed"><iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Dynamic Short-Form Edit" allowfullscreen loading="lazy"></iframe></div><div class="video-info"><h3>Dynamic Short-Form Edit</h3><p>Fast-paced editing with engaging captions and seamless transitions.</p></div></div>
-            <div class="video-card reveal"><div class="video-embed"><iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Stylized Content" allowfullscreen loading="lazy"></iframe></div><div class="video-info"><h3>Stylized Content</h3><p>Creative transitions and motion graphics that elevate the story.</p></div></div>
-            <div class="video-card reveal"><div class="video-embed"><iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Viral-Ready Edit" allowfullscreen loading="lazy"></iframe></div><div class="video-info"><h3>Viral-Ready Edit</h3><p>Optimized pacing and captions designed for maximum retention.</p></div></div>
+
+        <!-- SHORT FORM -->
+        <div class="videos-sub reveal">
+            <div class="videos-sub-header">Short Form <span class="badge badge-short">Reels &bull; TikTok &bull; Shorts</span></div>
+            <div class="videos-grid">
+                <!-- REPLACE video-placeholder with: <video src="short1.mp4" controls preload="metadata" playsinline></video> -->
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>Dynamic Short-Form Edit</h3><p>Fast-paced editing with engaging captions and seamless transitions.</p></div></div>
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>Stylized Content</h3><p>Creative transitions and motion graphics that elevate the story.</p></div></div>
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>Viral-Ready Edit</h3><p>Optimized pacing and captions designed for maximum retention.</p></div></div>
+            </div>
+        </div>
+
+        <!-- LONG FORM -->
+        <div class="videos-sub reveal">
+            <div class="videos-sub-header">Long Form <span class="badge badge-long">YouTube &bull; Documentary &bull; Podcast</span></div>
+            <div class="videos-grid">
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>YouTube Video Edit</h3><p>Professional long-form editing with storytelling and pacing.</p></div></div>
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>Documentary Style</h3><p>Cinematic editing with color grading and sound design.</p></div></div>
+                <div class="video-card"><div class="video-embed"><div class="video-placeholder"><div class="video-placeholder-icon">&#9654;</div>Coming Soon</div></div><div class="video-info"><h3>Podcast Edit</h3><p>Clean cuts, engaging visuals, and dynamic layout switching.</p></div></div>
+            </div>
         </div>
     </section>
 
     <section id="reviews">
         <div class="section-header reveal"><div class="section-tag">Testimonials</div><h2 class="section-title">Client Reviews</h2></div>
-        <div class="reviews-grid">
+        <div class="reviews-grid" id="reviewsGrid">
             <div class="review-card reveal"><p class="review-text">Abdullah turned our TikTok content into viral gold in just 2 days. The edits were exactly what we needed to stand out. Highly recommend!</p><div class="review-author">&#8212; James Miller</div><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
             <div class="review-card reveal"><p class="review-text">Professional edits, fast delivery, and great communication throughout. The thumbnails he designed doubled our CTR. Would hire again in a heartbeat!</p><div class="review-author">&#8212; Oliver Smith</div><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
+        </div>
+        <div class="review-cta reveal">
+            <button class="btn btn-primary" onclick="openReviewModal()">&#9997; Worked With Me? Leave a Review</button>
         </div>
     </section>
 
@@ -247,6 +300,7 @@
         </div>
     </footer>
 
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
         <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
@@ -254,7 +308,43 @@
         <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
     </div>
 
+    <!-- REVIEW MODAL -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeReviewModal()">&#10005;</button>
+            <div id="reviewForm">
+                <h2>Leave a <span class="gradient-text">Review</span></h2>
+                <p>Worked with me? I'd love to hear your feedback!</p>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="reviewName" placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Rating</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Your Review</label>
+                    <textarea id="reviewText" placeholder="Tell others about your experience working with me..."></textarea>
+                </div>
+                <button class="form-submit" onclick="submitReview()">Submit Review</button>
+            </div>
+            <div class="form-success" id="reviewSuccess">
+                <div class="check">&#10003;</div>
+                <h3>Thank You!</h3>
+                <p>Your review has been sent. I appreciate your feedback!</p>
+            </div>
+        </div>
+    </div>
+
     <script>
+        /* THUMBNAILS - images in root, not a folder */
         var thumbnailFiles = [];
         for (var i = 82; i <= 130; i++) { thumbnailFiles.push(i + '.png'); }
         var currentVisible = 12;
@@ -306,15 +396,21 @@
         }
 
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') navigateLightbox(-1);
-            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            }
+            if (document.getElementById('reviewModal').classList.contains('active')) {
+                if (e.key === 'Escape') closeReviewModal();
+            }
         });
 
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === document.getElementById('lightbox')) closeLightbox();
         });
 
+        /* COUNTERS */
         function animateCounters() {
             var els = document.querySelectorAll('.stat-number');
             for (var i = 0; i < els.length; i++) {
@@ -357,6 +453,49 @@
         window.addEventListener('scroll', function() {
             document.querySelector('nav').style.padding = window.scrollY > 50 ? '0.6rem 2rem' : '1rem 2rem';
         });
+
+        /* REVIEW MODAL */
+        function openReviewModal() {
+            document.getElementById('reviewModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('reviewForm').style.display = 'block';
+            document.getElementById('reviewSuccess').style.display = 'none';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('reviewModal').addEventListener('click', function(e) {
+            if (e.target === document.getElementById('reviewModal')) closeReviewModal();
+        });
+
+        function submitReview() {
+            var name = document.getElementById('reviewName').value.trim();
+            var text = document.getElementById('reviewText').value.trim();
+            var ratingEl = document.querySelector('input[name="rating"]:checked');
+            var rating = ratingEl ? ratingEl.value : 0;
+
+            if (!name || !text || !rating) {
+                alert('Please fill in your name, rating, and review.');
+                return;
+            }
+
+            /* Send review via email */
+            var subject = encodeURIComponent('New Portfolio Review from ' + name);
+            var body = encodeURIComponent('Name: ' + name + '\nRating: ' + rating + '/5 stars\n\nReview:\n' + text);
+            window.open('mailto:abdullahsarwar202@gmail.com?subject=' + subject + '&body=' + body);
+
+            /* Show success */
+            document.getElementById('reviewForm').style.display = 'none';
+            document.getElementById('reviewSuccess').style.display = 'block';
+
+            /* Reset form */
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewText').value = '';
+            if (ratingEl) ratingEl.checked = false;
+        }
 
         renderGallery();
     </script>
